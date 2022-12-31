@@ -45,6 +45,17 @@ pipeline{
                 deploy adapters: [tomcat8(credentialsId: 'ec84313c-aba8-4aca-b04f-fbcc3eef1e91', path: '', url: 'http://52.66.198.235:8080/')], contextPath: null, war: 'target/*war'
             }
         }
+        stage('EmailNotification'){
+            steps{
+        
+                emailext body: 'status', subject: 'pipeline job', to: 'vempalasatishkumar9@gmail.com'
+            }
+        }
+        stage('SlackNotification'){
+            steps{
+                slackSend channel: 'jenkins'
+            }
+        }
     }
 
 }
